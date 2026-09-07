@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="PulseVote — a modern polling and voting app with live results.">
+  <title>PulseVote — Polling & Voting</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Space+Grotesk:wght@500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <div class="app-shell">
+    <header class="topbar">
+      <a class="brand" href="#" aria-label="PulseVote home">
+        <span class="brand-mark"><span></span><span></span><span></span></span>
+        <span>Pulse<span>Vote</span></span>
+      </a>
+
+      <div class="topbar-actions">
+        <span class="storage-status"><i></i> Saved locally</span>
+        <button class="primary-btn" id="openCreateBtn" type="button">
+          <span class="plus">+</span> Create poll
+        </button>
+      </div>
+    </header>
+
+    <main>
+      <section class="hero">
+        <div class="hero-copy">
+          <div class="eyebrow"><span></span> LIVE POLLING</div>
+          <h1>Ask. Vote.<br><em>See the pulse.</em></h1>
+          <p>Create quick polls, collect one vote per person, and watch the results update instantly.</p>
+          <div class="hero-actions">
+            <button class="primary-btn large" id="heroCreateBtn" type="button">Create a poll <span>→</span></button>
+            <button class="ghost-btn large" id="scrollPollsBtn" type="button">Explore polls</button>
+          </div>
+        </div>
+
+        <div class="hero-card">
+          <div class="hero-card-top">
+            <span class="mini-label">COMMUNITY PULSE</span>
+            <span class="live-dot">● LIVE</span>
+          </div>
+          <div class="ring-wrap">
+            <div class="ring"><strong id="heroTotalVotes">0</strong><span>votes cast</span></div>
+          </div>
+          <div class="mini-stats">
+            <div><strong id="heroPollCount">0</strong><span>Active polls</span></div>
+            <div><strong>1×</strong><span>Vote per poll</span></div>
+          </div>
+        </div>
+      </section>
+
+      <section class="polls-section" id="polls">
+        <div class="section-heading">
+          <div>
+            <div class="eyebrow">YOUR POLLS</div>
+            <h2>Choose a question</h2>
+          </div>
+          <label class="search-box">
+            <span>⌕</span>
+            <input id="searchInput" type="search" placeholder="Search polls..." aria-label="Search polls">
+          </label>
+        </div>
+
+        <div class="filter-row">
+          <button class="filter active" data-filter="all">All polls</button>
+          <button class="filter" data-filter="unvoted">Not voted</button>
+          <button class="filter" data-filter="voted">Voted</button>
+        </div>
+
+        <div id="pollGrid" class="poll-grid" aria-live="polite"></div>
+        <div id="emptyState" class="empty-state hidden">
+          <div class="empty-icon">?</div>
+          <h3>No polls found</h3>
+          <p>Try another search or create a new poll.</p>
+          <button class="primary-btn" id="emptyCreateBtn" type="button">Create poll</button>
+        </div>
+      </section>
+    </main>
+
+    <footer>
+      <span>PulseVote</span>
+      <span>Built with HTML5 · CSS3 · JavaScript · LocalStorage</span>
+    </footer>
+  </div>
+
+  <div class="modal-backdrop hidden" id="createModal" role="dialog" aria-modal="true" aria-labelledby="modalTitle">
+    <div class="modal">
+      <button class="modal-close" id="closeCreateBtn" type="button" aria-label="Close">×</button>
+      <div class="eyebrow">NEW POLL</div>
+      <h2 id="modalTitle">What do you want to ask?</h2>
+      <p class="modal-subtitle">Add at least two answer choices. Your poll is stored in this browser.</p>
+
+      <form id="createForm">
+        <label class="field-label" for="questionInput">Question</label>
+        <input class="text-input" id="questionInput" maxlength="140" required placeholder="e.g. Which frontend tool do you use most?">
+
+        <div class="options-head">
+          <label class="field-label">Options</label>
+          <button class="text-btn" id="addOptionBtn" type="button">+ Add option</button>
+        </div>
+
+        <div id="optionInputs" class="option-inputs"></div>
+
+        <div class="modal-actions">
+          <button class="ghost-btn" id="cancelCreateBtn" type="button">Cancel</button>
+          <button class="primary-btn" type="submit">Publish poll <span>→</span></button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <div class="toast" id="toast" role="status"></div>
+  <script src="script.js"></script>
+</body>
+</html>
